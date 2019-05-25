@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using System.Runtime.Caching;
 using MyShop.Core.Models;
 
+
 namespace Myshop.DataAccess.InMemory
 {
-    class ProductRepository
+    public class ProductRepository
     {
         ObjectCache cache = MemoryCache.Default;
         List<Product> products;
@@ -22,19 +23,21 @@ namespace Myshop.DataAccess.InMemory
             }
         }
         public void Commit() {
-            cache["producct"] = products;
+            cache["products"] = products;
 
         }
         public void Insert(Product p) {
             products.Add(p);
+            Commit();
         }
-        public void Update(Product product)
+        public void Update(Product product, string Id )
         {
-            Product productToUpdate = products.Find(p => p.Id == product.Id);
+            Product productToUpdate = products.Find(p => p.Id == Id);
 
             if (productToUpdate != null)
             {
                 productToUpdate = product;
+                Commit();
             }
             else {
                 throw new Exception("produkt nicht gefunden");
@@ -64,6 +67,7 @@ namespace Myshop.DataAccess.InMemory
             if (productToDelete != null)
             {
                 products.Remove(productToDelete);
+                Commit();
             }
             else
             {
