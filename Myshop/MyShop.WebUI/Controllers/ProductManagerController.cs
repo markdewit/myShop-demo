@@ -12,13 +12,13 @@ namespace MyShop.WebUI.Controllers
     public class ProductManagerController : Controller
     {
 
-        ProductRepository Context;
-        ProductCatagoryRepository productcategories;
+        InMemoryRepository<Product> Context;
+        InMemoryRepository<ProductCatagory> productcategories;
 
         public ProductManagerController()
         {
-            Context = new ProductRepository();
-            productcategories = new ProductCatagoryRepository();
+            Context = new InMemoryRepository<Product>();
+            productcategories = new InMemoryRepository<ProductCatagory>();
         }
 
         // GET: ProductManager
@@ -72,7 +72,7 @@ namespace MyShop.WebUI.Controllers
             if (!ModelState.IsValid) {
                 return View(p);
             }
-            Context.Update(pToEdit, Id);
+            Context.Update(pToEdit);
             
             return RedirectToAction("Index");
 
