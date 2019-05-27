@@ -7,6 +7,7 @@ using MyShop.Core.Models;
 using Myshop.DataAccess.InMemory;
 using MyShop.Core.ViewModels;
 using Myshop.Core.contracts;
+using System.IO;
 
 namespace MyShop.WebUI.Controllers
 {
@@ -14,12 +15,12 @@ namespace MyShop.WebUI.Controllers
     {
 
         IRepository<Product> Context;
-        InMemoryRepository<ProductCatagory> productcategories;
+       Repository<ProductCatagory> productcategories;
 
-        public ProductManagerController()
+        public ProductManagerController(IRepository<Product> context, Repository<ProductCatagory> productCategories)
         {
-            Context = new InMemoryRepository<Product>();
-            productcategories = new InMemoryRepository<ProductCatagory>();
+            Context = context;
+            productcategories = productCategories;
         }
 
         // GET: ProductManager
@@ -39,13 +40,16 @@ namespace MyShop.WebUI.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
                 return View(product);
             }
-
+            if (file != null) {
+                product.Image = product.Id + Path.GetExtension(file.FileName);
+                file.SaveAs(Server.MapPath("//Content//ProductImages//") + product.Image);
+            }
             Context.Insert(product);
             Context.Commit();
 
@@ -65,7 +69,7 @@ namespace MyShop.WebUI.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public ActionResult Edit(Product p,string Id ) {
+        public ActionResult Edit(Product p, string Id, HttpPostedFileBase file ) {
             Product pToEdit = Context.Find(Id);
             if (pToEdit == null) {
                 return HttpNotFound();
@@ -73,7 +77,15 @@ namespace MyShop.WebUI.Controllers
             if (!ModelState.IsValid) {
                 return View(p);
             }
-            Context.Update(pToEdit);
+            if (file != null)
+            {
+                p.Image = p.Id + Path.GetExtension(file.FileName);
+                file.SaveAs(Server.MapPath("//Content//ProductImages//") + pToEdit.Image);
+            }
+            pToEdit.Category = p.Category;
+            pToEdit.Description = p.Description;
+            pToEdit.Name = p.Name;
+            pToEdit.Price = p.Price;
             
             return RedirectToAction("Index");
 

@@ -48,8 +48,8 @@ namespace MyShop.WebUI
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<IRepository<Product>, InMemoryRepository<Product>>();
-            container.RegisterType<IRepository<ProductCatagory>, InMemoryRepository<ProductCatagory>>();
+            container.RegisterType<IRepository<Product>, Repository<Product>>();
+            container.RegisterType<IRepository<ProductCatagory>, Repository<ProductCatagory>>();
         }
     }
 }

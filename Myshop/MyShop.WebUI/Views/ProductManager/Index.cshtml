@@ -23,14 +23,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Category)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr><td>
+            <img class="img-thumbnail" style="height:50px;width:50px;" src="~/Content/ProductImages/@item.Image" />   
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -43,9 +43,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Category)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Image)
-        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
