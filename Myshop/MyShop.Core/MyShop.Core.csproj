@@ -46,6 +46,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCatagory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ProductListViewModel.cs" />
     <Compile Include="ViewModels\ProductManagerViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

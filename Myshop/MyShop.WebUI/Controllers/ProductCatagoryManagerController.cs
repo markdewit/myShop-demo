@@ -17,7 +17,7 @@ namespace MyShop.WebUI.Controllers
 
         public ProductCatagoryManagerController(IRepository<ProductCatagory> context)
         {
-            Context = context;
+            this.Context = context;
         }
 
         // GET: ProductManager
@@ -93,9 +93,12 @@ namespace MyShop.WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            Context.Delete(Id);
-
-            return RedirectToAction("index");
+            else
+            {
+                Context.Delete(Id);
+                Context.Commit();
+                return RedirectToAction("Index");
+            }
         }
     }
 }

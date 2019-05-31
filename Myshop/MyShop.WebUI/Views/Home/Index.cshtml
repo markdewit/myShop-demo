@@ -1,32 +1,44 @@
-﻿@model IEnumerable<MyShop.Core.Models.Product>
+﻿@model  MyShop.Core.ViewModels.ProductListViewModel
 
 @{
     ViewBag.Title = "Home Page";
 }
 
     <h1>Products</h1>
-<div class="row">
-
-    @foreach (var item in Model)
-    {
-    <div class="col-md-4" style="45opx; padding:10px; margin:10px;border: solid thin black">
-        <div class="col-md-12">
-            <img class="img-responsive" style="height:350px" src="~/Content/ProductImages/@item.Image" />
-        </div>
-        <div class="col-md-12">
-            <h3>@Html.ActionLink(item.Name, "Details", new { Id = item.Id })</h3>
-        </div>
-        <div class="col-md-12">
-            <p>@item.Description</p>
-        </div>
-        <div class="col-md-12">
-            <p>@item.Price</p>
-        </div>
-        <div class="col-md-12">
-            <a href="#" class="btn btn-default"> Add to Basket</a>
-        </div>
+<div class="col-md-2">
+    <h4> filter by Catogory</h4>
+    <div class="list-group">
+        @Html.ActionLink("all", "Index", null, new { @class = Request["catagory"] == null ? "list-group-item active" : "list-group-item " })
+        @foreach (var cat in Model.Catagories)
+        {
+        @Html.ActionLink(cat.Catagory, "Index", new { catagory = cat.Catagory }, new { @class = Request["catagory"] == cat.Catagory ? "list-group-item active" : "list-group-item " })
+        }
     </div>
+</div>
+<div class="col-md-10">
+    <div class="row">
+
+        @foreach (var item in Model.Products)
+    {
+        <div class="col-md-4" style="padding:10px; margin:10px;border: solid thin black">
+            <div class="col-md-12">
+                <img class="img-responsive" style="height:350px" src="~/Content/ProductImages/@item.Image" />
+            </div>
+            <div class="col-md-12">
+                <h3>@Html.ActionLink(item.Name, "Details", new { Id = item.Id })</h3>
+            </div>
+            <div class="col-md-12">
+                <p>@item.Description</p>
+            </div>
+            <div class="col-md-12">
+                <p>@item.Price</p>
+            </div>
+            <div class="col-md-12">
+                <a href="#" class="btn btn-default"> Add to Basket</a>
+            </div>
+        </div>
 
 
-    }
+}
+    </div>
 </div>

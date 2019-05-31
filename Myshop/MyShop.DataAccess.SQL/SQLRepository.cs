@@ -35,11 +35,12 @@ namespace MyShop.DataAccess.SQL
         {
             var t = Find(Id);
             if (context.Entry(t).State == EntityState.Detached)
-            {
                 dbSet.Attach(t);
-                dbSet.Remove(t);
 
-            }
+
+            dbSet.Remove(t);
+
+            
         }
 
         public T Find(string Id)
