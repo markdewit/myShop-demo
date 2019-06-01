@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Models\BaseEntity.cs" />
-    <Compile Include="Models\basket.cs" />
+    <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\BasketItem.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCatagory.cs" />

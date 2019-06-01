@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyShop.Core.Models
 {
-    public class basket :BaseEntity
+    public class Basket :BaseEntity
     {
         public virtual ICollection<BasketItem> BasketItems { get; set; }
 
-        public basket()
+        public Basket()
         {
             this.BasketItems = new List<BasketItem>();
 
