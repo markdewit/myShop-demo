@@ -8,7 +8,8 @@ using System;
 
 using Unity;
 using MyShop.Core.Models;
-
+using MyShop.Services;
+using MyShop.Core.Contracts;
 
 namespace MyShop.WebUI
 {
@@ -52,6 +53,9 @@ namespace MyShop.WebUI
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IRepository<Product>, SQLRepository<Product>>();
             container.RegisterType<IRepository<ProductCatagory>, SQLRepository<ProductCatagory>>();
+            container.RegisterType<IRepository<BasketItem>, SQLRepository<BasketItem>>();
+            container.RegisterType<IRepository<Basket>, SQLRepository<Basket>>();
+            container.RegisterType<IBasketService, BasketService>();
         }
     }
 }
