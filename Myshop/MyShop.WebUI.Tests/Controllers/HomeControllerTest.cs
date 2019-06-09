@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Myshop.Core.contracts;
+using MyShop.Core.Models;
 using MyShop.WebUI;
 using MyShop.WebUI.Controllers;
 
@@ -12,18 +14,24 @@ namespace MyShop.WebUI.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        //[TestMethod]
-        //public void Index()
-        //{
-        //    // Arrange
-        //    HomeController controller = new HomeController();
+        [TestMethod]
+        public void IndexPageDoesReturnProducts()
+        {
+            // Arrange
+            IRepository<Product> productContext = new Mocks.MockContext<Product>();
+            IRepository<ProductCatagory> productcatagoriesContext = new Mocks.MockContext<ProductCatagory>();
 
-        //    // Act
-        //    ViewResult result = controller.Index() as ViewResult;
+            productContext.Insert(new Product());
 
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //}
+            HomeController controller = new HomeController(productContext,productcatagoriesContext);
+
+            // Act
+            ViewResult result = controller.Index() as ViewResult;
+            var viewModel = (Core.ViewModels.ProductListViewModel)result.ViewData.Model;
+            // Assert
+            Assert.AreEqual(1, viewModel.Products.Count());
+
+        }
 
         //[TestMethod]
         //public void About()
