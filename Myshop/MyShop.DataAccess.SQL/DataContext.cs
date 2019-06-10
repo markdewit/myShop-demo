@@ -19,6 +19,8 @@ namespace MyShop.DataAccess.SQL
         public DbSet<BasketItem> Basketitems { get; set; }
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> Oderitems { get; set; }
 
 
 
