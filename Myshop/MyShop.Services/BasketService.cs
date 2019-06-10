@@ -11,8 +11,8 @@ using System.Web;
 namespace MyShop.Services
 {
     public class BasketService : Core.Contracts.IBasketService
-    { 
-
+    {
+        
         IRepository<Product> productContext; 
         IRepository<Basket> basketContext;
 
@@ -21,6 +21,7 @@ namespace MyShop.Services
         public BasketService(IRepository<Product> ProductContext, IRepository<Basket> BasketContext) {
             this.basketContext = BasketContext;
             this.productContext = ProductContext;
+            
         }
 
         private Basket GetBasket(HttpContextBase httpContext, bool createIfNull)
